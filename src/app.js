@@ -6,6 +6,9 @@ const helmet = require('helmet')
 const authRouter = require('../src/auth/auth-router')
 const { NODE_ENV } = require('./config')
 const usersRouter = require('./users/users-router')
+const routesRouter = require('./routes/routes-router')
+const pointsRouter = require('./points/points-router')
+const scheduleRouter = require('./schedule/schedule-router')
 const app = express()
 
 const morganOption = (NODE_ENV === 'production')
@@ -18,6 +21,9 @@ app.use(cors())
 
 app.use('/api/auth', authRouter)
 app.use('/api/users',usersRouter)
+app.use('/api/routes',routesRouter)
+app.use('/api/points',pointsRouter)
+app.use('/api/schedule',scheduleRouter)
 
 
 
