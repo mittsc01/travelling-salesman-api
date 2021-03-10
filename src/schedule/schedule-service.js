@@ -22,26 +22,15 @@ deleteRun(db,id){
         .delete()
 
 },
-updateRoute(db,routeFields,id){
-    return db
-        .from('ts_routes')
-        .where({id})
-        .update(routeFields)
-},
 
-  getById(db, id) {
-    return ScheduleService.getAllRaces(db)
-      .from('racedirector_races AS race')
-      .where('race.id', id)
+
+  getScheduleItemById(db,id){
+    return db
+      .from('ts_runs')
+      .where({id})
       .first()
   },
-
-  getFinishersByRace(db, race_id) {
-    return db
-      .from('racedirector_finishers AS finisher')
-      .select('*')
-      .where('finisher.race_id', race_id)
-  },
+  
 
   serializeScheduleItem(run) {
     
@@ -49,6 +38,8 @@ updateRoute(db,routeFields,id){
       id: run.id,
       title: xss(run.title),
       route_id: run.route_id,
+      created_by: run.created_by,
+      date: run.date,
       date_created: new Date(run.date_created),
       date_modified: new Date(run.date_modified),
       
@@ -56,33 +47,7 @@ updateRoute(db,routeFields,id){
 
     }
   },
-  insertFinisher(db,finisher){
-    return db
-    .insert(finisher)
-    .into('racedirector_finishers')
-    .returning('*')
-    .then(rows=>rows[0])
-  },
   
-  serializeFinisher(finisher){
-      return {
-          id: finisher.id,
-          race_id: finisher.race_id,
-          place: finisher.place,
-          name: finisher.name,
-          time: finisher.time,
-          status: finisher.status,
-          gender: finisher.gender,
-          age: finisher.age,
-          date_created: finisher.date_created,
-      }
-  },
-  deleteFinisher(db,id){
-    return db
-    .from('racedirector_finishers')
-    .where({id})
-    .delete()
-  }
 }
 
 module.exports = ScheduleService

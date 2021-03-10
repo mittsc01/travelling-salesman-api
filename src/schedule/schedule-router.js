@@ -48,9 +48,25 @@ scheduleRouter
     })
 scheduleRouter
     .route('/:runId')
-    .all(jsonParser, requireAuth)
+    .all(jsonParser, requireAuth, (req,res,next) => {
+        ScheduleService.getScheduleItemById(
+            req.app.get('db'),
+            req.params.runId
+        )
+        .then(route => {
+            if (!route){
+                return res.sendStatus(404)
+            
+            }
+            else if (route.created_by !== req.user.id){
+                return res.status(401).json({error: 'Unauthorized request'})
+            }
+            next()
+        })
+    })
+    
     .delete((req, res, next) => {
-        console.log('hi')
+        //console.log('hi')
         ScheduleService.deleteRun(
             req.app.get('db'),
             req.params.runId
@@ -59,28 +75,5 @@ scheduleRouter
             .catch(next)
 
     })
-    .patch((req, res, next) => {
-        const { title } = req.body
-        const updatedRoute = { title }
-        const numberOfValues = Object.values(updatedRoute).filter(Boolean).length
-        if (numberOfValues === 0) {
-            return res.status(400).json({
-                error: {
-                    message: `Request body must contain one of the following: 'title'`
-                }
-            })
-        }
 
-        updatedRoute.date_modified = new Date()
-        ScheduleService.updateRoute(
-            req.app.get('db'),
-            updatedRoute,
-            req.params.routeId
-
-        )
-            .then(numRowsAffected => {
-                res.status(204).end()
-            })
-            .catch(next)
-    })
     module.exports = scheduleRouter

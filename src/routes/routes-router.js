@@ -48,9 +48,24 @@ routesRouter
     })
 routesRouter
     .route('/:routeId')
-    .all(jsonParser, requireAuth)
+    .all(jsonParser, requireAuth, (req,res,next) => {
+        RoutesService.getRouteById(
+            req.app.get('db'),
+            req.params.routeId
+        )
+        .then(route => {
+            if (!route){
+                return res.sendStatus(404)
+            
+            }
+            else if (route.created_by !== req.user.id){
+                return res.status(401).json({error: 'Unauthorized request'})
+            }
+            next()
+        })
+    })
     .delete((req, res, next) => {
-        console.log('hi')
+        //console.log('hi')
         RoutesService.deleteRoute(
             req.app.get('db'),
             req.params.routeId

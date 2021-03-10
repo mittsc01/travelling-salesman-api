@@ -30,20 +30,12 @@ updateRoute(db,routeFields,id){
         .update(routeFields)
 },
 
-  getById(db, id) {
-    return RoutesService.getAllRaces(db)
-      .from('racedirector_races AS race')
-      .where('race.id', id)
-      .first()
-  },
-
-  getFinishersByRace(db, race_id) {
-    return db
-      .from('racedirector_finishers AS finisher')
-      .select('*')
-      .where('finisher.race_id', race_id)
-  },
-
+getRouteById(db,routeId){
+  return db
+    .from('ts_routes')
+    .where('id',routeId)
+    .first()
+},
   serializeRoute(route) {
     
     return {
