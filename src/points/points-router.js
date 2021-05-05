@@ -28,10 +28,10 @@ pointsRouter
             })
     })
     .get((req, res, next) => {
-        //console.log(req.headers)
+        //.log(req.headers)
         PointsService.getPointsByRouteId(req.app.get('db'), req.params.routeId)
             .then(points => {
-                //console.log(points)
+                //.log(points)
                 res.json(points.map(PointsService.serializePoint))
             })
             .catch(next)
@@ -53,7 +53,7 @@ pointsRouter
 
             )
                 .then(point => {
-                    console.log(point)
+                    
                     res
                         .location(`/api/points/${point.route_id}`)
                         .status(201)
@@ -90,7 +90,7 @@ pointsRouter
 
         ))
         .then(() =>{
-            console.log(points)
+            
             return res
                 .status(204)
                 .end()

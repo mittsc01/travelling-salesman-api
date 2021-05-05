@@ -162,7 +162,7 @@ describe('Points Endpoints', function () {
                 const idToRemove = testRoutes[1].id
                 const user = testUsers[1]
                 
-                //console.log(expectedRoutes)
+                
                 return supertest(app)
                     .delete(`/api/points/${idToRemove}`)
                     .set('Authorization', helpers.makeAuthHeader(user))

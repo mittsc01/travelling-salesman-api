@@ -140,7 +140,7 @@ describe('Routes Endpoints', function () {
                         route.date_modified = route.date_modified.toISOString()
                         return route
                     })
-                //console.log(expectedRoutes)
+                
                 return supertest(app)
                     .delete(`/api/routes/${idToRemove}`)
                     .set('Authorization', helpers.makeAuthHeader(user))

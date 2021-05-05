@@ -9,16 +9,16 @@ routesRouter
     .route('/')
     .all(jsonParser, requireAuth)
     .get((req, res, next) => {
-        //console.log('hello')
+        
         RoutesService.getAllRoutes(req.app.get('db'), req.user.id)
             .then(routes => {
-                //console.log(routes)
+                
                 res.json(routes.map(RoutesService.serializeRoute))
             })
             .catch(next)
     })
     .post((req, res, next) => {
-        //console.log('hello')
+        
         const { title } = req.body
         const newRoute = { title }
 
@@ -65,7 +65,7 @@ routesRouter
         })
     })
     .delete((req, res, next) => {
-        //console.log('hi')
+        
         RoutesService.deleteRoute(
             req.app.get('db'),
             req.params.routeId

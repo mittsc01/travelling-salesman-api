@@ -142,12 +142,12 @@ describe('Routes Endpoints', function () {
                 const routeId = testRuns[0].route_id
                 const expectedRoutes = testRuns.filter(run => run.id !== idToRemove && run.route_id === routeId)
                     .map(run => {
-                        //console.log(run)
+                        
                         run.date_created = run.date_created.toISOString()
                         run.date_modified = run.date_modified.toISOString()
                         return run
                     })
-                //console.log('hello')
+                
                 return supertest(app)
                     .delete(`/api/schedule/${idToRemove}`)
                     .set('Authorization', helpers.makeAuthHeader(user))

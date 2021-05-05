@@ -9,16 +9,16 @@ scheduleRouter
     .route('/')
     .all(jsonParser, requireAuth)
     .get((req, res, next) => {
-        //console.log('hello')
+        
         ScheduleService.getSchedule(req.app.get('db'), req.user.id)
             .then(runs => {
-                //console.log(routes)
+                
                 res.json(runs.map(ScheduleService.serializeScheduleItem))
             })
             .catch(next)
     })
     .post((req, res, next) => {
-        //console.log('hello')
+        
         const { title, route_id, date} = req.body
         const newRun = { title, route_id, date, created_by: req.user.id }
 
@@ -66,7 +66,7 @@ scheduleRouter
     })
     
     .delete((req, res, next) => {
-        //console.log('hi')
+        
         ScheduleService.deleteRun(
             req.app.get('db'),
             req.params.runId
