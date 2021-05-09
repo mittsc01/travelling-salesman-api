@@ -1,26 +1,77 @@
-# Express Boilerplate!
+# Travelling Salesman API
 
-This is a boilerplate project used for starting new projects!
+To access the live API endpoint, use the following URL: 
+https://ts-s.herokuapp.com/api
+## Getting Started
 
-## Set up
+1. Clone this repository and run `npm i`
+2. Create local Postgresql databases (NOTE: you will need Postgresql installed locally): `ts` and `ts-test`
+3. Run `mv example.env .env` and provide the local database locations within your `.env` file
+4. Run npm run migrate and npm run migrate:test to update each database with appropriate tables
+5. Run npm run dev to start server locally
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Description
+*all endpoints in this section require a JWT token.  All otherwise valid requests missing the token will receive a 401 unauthorized response.
 
-## Scripts
+## Summary
+The Travelling Salesman app allows the user to create an account and then create routes using an interactive map.  The user is then able to add routes to their schedule.
 
-Start the application `npm start`
 
-Start nodemon for the application `npm run dev`
+### Routes*
+* GET /routes
+    * responds with 200 and array of all route matching the user id
+* POST /routes
+    * responds with 201 and the new route. Request body field options include:
+        * title (required)
 
-Run the tests `npm test`
+* DELETE /routes/:route_id
+    * responds with 204 and deletes route with requested id if it matches
+    * responds with 404 if no matching route
 
-## Deploying
+* PATCH /routes/:route_id
+    * responds with 204 and updates the route with requested id if it matches
+    * responds with 404 if no matching route
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+### Schedule*
+* GET /schedule
+    * responds with 200 and array of all schedule items matching the user id
+* POST /schedule
+    * responds with 201 and the new schedule item. Request body field options include:
+        * title (required)
+        * route_id (required) 
+        * date (required)
+        * created_by (required)
+
+* DELETE /schedule/:run_id
+    * responds with 204 and deletes item with requested id if it matches
+    * responds with 404 if no matching item
+
+
+### Points*
+* GET /points/:route_id
+    * responds with 200 and array of all points matching the with the correct route_id
+* POST /points/:route_id
+    * responds with 201 and the first point in the list. Request body field options include:
+        * points (required)
+* DELETE /points/:route_id
+    * responds with 204 and deletes points with requested id if it matches
+    * responds with 404 if no matching route
+* PUT /points/:route_id
+    * responds with 204 and deletes points with requested id if it matches
+    * posts new points
+
+
+
+
+## Technologies
+* NodeJS
+* Express
+* PostgreSQL
+
+# Screenshots
+![Race results detail screenshot](/screenshots-race-app/results-detail.png)
+![Race info screenshot](/screenshots-race-app/race-detail.png)
+![Add a race view screenshot](/screenshots-race-app/add-race.png)
+![Search for races screenshot](/screenshots-race-app/search-race.png)
+

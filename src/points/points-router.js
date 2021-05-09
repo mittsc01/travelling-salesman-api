@@ -46,21 +46,21 @@ pointsRouter
         })
 
 
-        
-            PointsService.insertPoint(
-                req.app.get('db'),
-                points,
 
-            )
-                .then(point => {
-                    
-                    res
-                        .location(`/api/points/${point.route_id}`)
-                        .status(201)
-                        .json(point)
-                })
-                .catch(next)
-        
+        PointsService.insertPoint(
+            req.app.get('db'),
+            points,
+
+        )
+            .then(point => {
+
+                res
+                    .location(`/api/points/${point.route_id}`)
+                    .status(201)
+                    .json(point)
+            })
+            .catch(next)
+
 
     })
     .delete((req, res, next) => {
@@ -76,7 +76,7 @@ pointsRouter
 
         const points = req.body.map(point => {
             point.route_id = req.params.routeId
-            
+
             return point
         })
 
@@ -84,25 +84,25 @@ pointsRouter
             req.app.get('db'),
             req.params.routeId
         )
-        .then(() => PointsService.insertPoint(
-            req.app.get('db'),
-            points,
+            .then(() => PointsService.insertPoint(
+                req.app.get('db'),
+                points,
 
-        ))
-        .then(() =>{
-            
-            return res
-                .status(204)
-                .end()
+            ))
+            .then(() => {
+
+                return res
+                    .status(204)
+                    .end()
             })
-        .catch(next)
+            .catch(next)
 
 
-        
-        
-        
-        
-        
+
+
+
+
+
     })
 
 module.exports = pointsRouter
