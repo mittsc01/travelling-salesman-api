@@ -2,7 +2,7 @@ const xss = require('xss')
 
 const PointsService = {
   getPointsByRouteId(db, routeId) {
-    console.log(routeId)
+    
     return db
       .from('ts_points AS point')
       .select('*')
