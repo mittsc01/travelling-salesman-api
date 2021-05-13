@@ -70,8 +70,8 @@ The Travelling Salesman app allows the user to create an account and then create
 * PostgreSQL
 
 # Screenshots
-![Race results detail screenshot](/screenshots-race-app/results-detail.png)
-![Race info screenshot](/screenshots-race-app/race-detail.png)
-![Add a race view screenshot](/screenshots-race-app/add-race.png)
-![Search for races screenshot](/screenshots-race-app/search-race.png)
+![Landing page view screenshot](/ts-screenshots/Landing.png)
+![Add Route view screenshot](/ts-screenshots/AddRoute.png)
+![Route List view screenshot](/ts-screenshots/RouteList.png)
+![Schedule Item detail view screenshot](/ts-screenshots/ScheduleItem.png)
 
